@@ -70,8 +70,12 @@ def loadSrc():
 
     line = input.readline()
     for i in range( int(num) ):
-      files.append( line[:-1] )
-      line = input.readline()
+        if os.path.exists( os.path.join( dir, line[:-1] ) ):
+            print( dir + '/' + line[:-1] + '  already exists' )
+            line = input.readline()
+            continue
+        files.append( line[:-1] )
+        line = input.readline()
     apps[ dir ] = files
 
   input.close()
