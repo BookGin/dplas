@@ -6,3 +6,6 @@ Please check the Issues to follow the latest progress.
 `pip3 install jieba`
 `jieba.set_dictionary('dict.txt.big')`
 
+# spec
+
+![spec](https://hackmd.io/CwIwzMDGCMBsIFoBMBWAhkhxZtgksAnJAoWmiMIQCYCm10AHCEA=)
