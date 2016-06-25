@@ -4,43 +4,54 @@ import jieba.analyse
 import os
 import json
 import sys
+import string
 
 
 jieba.set_dictionary('dict.txt.big')
 
-allWords = {}
+allWords = []
+docUsedNum = 0
 wordCount = 0
-allDocs = []
-
+wordL = {}
 
 ############      Function      #############
+
+punct = set(u''':!),.:;?]}¢'"、。〉》」』】〕】〞︰︱︳﹐､﹒
+            ﹔﹕﹖﹗﹚﹜﹞！），．：；？｜｝︴︶︸︺︼︾﹀﹂﹄﹏､～￠
+            々∥•‧ˇˉ─--′』」([{£¥'"‵〈《「『【〔【（［｛￡￥〝︵︷︹︻
+            ︽︿﹁﹃﹙﹛﹝（｛「『-—_…''')
+
+punct.union( string.punctuation )
+punct.union( string.whitespace )
+
+def get_words( text ):
+    raw_words = jieba.cut( text , cut_all=False )
+    return list( filter( lambda s:s not in punct , raw_words ) )
 
 def parseText( text ):
     # parse document text
     # return { word : # }
-    global wordCount
+    global docUsedNum, wordCount
 
-    wordt = {}
-    words = jieba.cut(text, cut_all=False) # use cut_for_search?
+    words = get_words( text )
+
     for w in words:
-        if w in allWords:
-            if allWords[w] in wordt:
-                wordt[ allWords[w] ] += 1
-            else:
-                wordt[ allWords[w] ] = 1
+        if w in wordL:
+            allWords[ wordL[w] ].append( docUsedNum )
         else:
+            wordL[ w ] = wordCount
             wordCount += 1
-            allWords[ w ] = wordCount
-            wordt[ wordCount ] = 1
+            allWords.append( [] )
+            allWords[ wordL[w] ].append( docUsedNum )
 
-    return wordt
+    docUsedNum += 1
+
 
 def procFB( file ): # parse facebook 
     with open( file , 'r' ) as fb_data:
         jsonD = json.load( fb_data )
         for obj in jsonD[ 'posts' ]:
-            mm = parseText( obj )
-            allDocs.append( mm )
+            parseText( obj )
 
         print( jsonD[ 'name' ]  + ' is done. ' )
         fb_data.close()
@@ -50,8 +61,7 @@ def procWeb( file ): # parse website
     with open( file, 'r' ) as data:
         jsonD = json.load( data )
         for obj in jsonD:
-            mm = parseText( obj[ 'text' ] )
-            allDocs.append( mm )
+            parseText( obj[ 'text' ] )
 
         data.close()
 
@@ -62,8 +72,7 @@ def portRep( file ):
             str = ''
             for cont in obj[ 'content' ]:
                 str += cont
-            mm = parseText( str )
-            allDocs.append( mm )
+            parseText( str )
 
         data.close()
 
@@ -78,7 +87,6 @@ def check( file ):
     return file
 
 
-docUsedNum = 0
 
 while True:
     outfile = input( '>>> Output inverted file: ' )
@@ -119,13 +127,20 @@ while True:
     print( '   ----   Report done   ----' )
 
     # write inverted file
-    output.write( str(len(allDocs))  + '\n' )
+    output.write( str(len(allWords))  + '\n' )
 
-    for doc in allDocs:
-        output.write( str(docUsedNum) + ' ' + str(len(doc)) + '\n' )
-        docUsedNum += 1
-        for tn in doc:
-            output.write( str(tn) + ' ' + str(doc[ tn ]) + '\n' ) 
+    i = 0
+    for docs in allWords:
+        h = {}
+        for d in docs:
+            if d in h:
+                h[d] += 1
+            else:
+                h[d] = 1
+        output.write( str( i ) + ' ' + str(len( h )) + ' ' + str(len( docs )) + '\n' )
+        i += 1
+        for d in h:
+            output.write( str(d) + ' ' + str( h[d] ) + '\n' ) 
     
     output.close()
 
@@ -137,13 +152,14 @@ while True:
     if next == 'n':
         break
 
+    allWords = []
+
 
 # write word list
-
 wordlist = open( 'word.list', 'w' )
 
-for word in allWords:
-    wordlist.write( word + '\n')
+for (w,s) in sorted( wordL.items(), key=lambda v: v[1]  ):
+    wordlist.write( str(s) + ' ' + w + '\n')
 
 wordlist.close()
 
