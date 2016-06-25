@@ -78,9 +78,27 @@ else:
 print( "cluster done" )
 
 ids = clus.predict( X )
-fos = [ open( "./bm25_clus/%d.list" % i , 'w' ) for i in range( 15 ) ]
 
-for ( i , id ) in enumerate( ids ):
-    fos[ id ].write( corpus[ i ] + '\n' )
+cur = 0
+
+for obj in poli:
+    obj[ 'topic' ] = int( ids[ cur ] )
+    cur += 1
+
+for obj in talk:
+    obj[ 'topic' ] = int( ids[ cur ] )
+    cur += 1
+
+enc = json.encoder.JSONEncoder( ensure_ascii=False )
+objs = poli+talk
+
+print( objs[ :10 ] )
+
+json.dump( poli + talk , open( 'corpus.json' , 'w' ) , ensure_ascii=False )
+
+# fos = [ open( "./bm25_clus/%d.json" % i , 'w' ) for i in range( 15 ) ]
+
+# for ( i , id ) in enumerate( ids ):
+    # fos[ id ].write( corpus[ i ] + '\n' )
 
 
