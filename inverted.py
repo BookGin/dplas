@@ -35,16 +35,15 @@ def parseText( text ):
 
     return wordt
 
-def procFB( dir ): # parse facebook
-    for file in os.listdir( dir ):
-        with open( os.path.join( dir, file ), 'r' ) as fb_data:
-            jsonD = json.load( fb_data )
-            for obj in jsonD[ 'posts' ]:
-                mm = parseText( obj )
-                allDocs.append( mm )
+def procFB( file ): # parse facebook 
+    with open( file , 'r' ) as fb_data:
+        jsonD = json.load( fb_data )
+        for obj in jsonD[ 'posts' ]:
+            mm = parseText( obj )
+            allDocs.append( mm )
 
-            print( jsonD[ 'name' ]  + ' is done. ' )
-            fb_data.close()
+        print( jsonD[ 'name' ]  + ' is done. ' )
+        fb_data.close()
 
 
 def procWeb( file ): # parse website
@@ -71,25 +70,53 @@ def portRep( file ):
 
 ##########   Main   ##########
 
+def check( file ):
+    while not os.path.exists( file ):
+        file = input( '!!! Oops, the file ' + file + ' does not exist... Please enter again (leave blank for cancellation): ' )
+        if len(file) == 0:
+            return ''
+    return file
+
+
 docUsedNum = 0
 
 while True:
     outfile = input( '>>> Output inverted file: ' )
-    fb_dir = input( '>>> FB directory: ' )
-    web_files = input( '>>> Web file (use whitespace to split): ' )
-    report_files = input( '>>> Report file (use whitespace to split): ' )
+    print( 'Please input FB, Web or report files. Also, use whitespace to split.' )
+    fb_files = input( '>>> FB file/dir: ' )
+    web_files = input( '>>> Web file: ' )
+    report_files = input( '>>> Report file: ' )
 
     output = open( outfile , 'w' )
 
-    if len( fb_dir ) == 0:
-        procFB( fb_dir )
     
+    for fb_file in fb_files.split():
+        fb_file = check( fb_file )
+        if len( fb_file ) == 0:
+            continue
+        if os.path.isdir( fb_file ):
+            for d in os.listdir( fb_file ):
+                procFB( os.path.join( fb_file, d ) )
+        else:
+            procFB( fb_file )
+    
+    print( '   ----   FB done   ----' )
+
     for web_file in web_files.split():
+        web_file = check( web_file )
+        if len( web_file ) == 0:
+            continue
         procWeb( web_file )
 
+    print( '   ----   Web done   ----' )
+
     for report in report_files.split():
+        report = check( report )
+        if len( report ) == 0:
+            continue
         procRep( report )
 
+    print( '   ----   Report done   ----' )
 
     # write inverted file
     output.write( str(len(allDocs))  + '\n' )
@@ -114,8 +141,10 @@ while True:
 # write word list
 
 wordlist = open( 'word.list', 'w' )
+
 for word in allWords:
     wordlist.write( word + '\n')
-    wordlist.close()
+
+wordlist.close()
 
 print( 'inverted file done.' )
