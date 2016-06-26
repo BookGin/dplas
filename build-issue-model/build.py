@@ -11,9 +11,9 @@ jieba.set_dictionary('../dict.txt.big')
 OKAPI_K = 1.6
 OKAPI_B = 0.75
 
-vocab = json.load(open( "%s.vocab" % sys.argv[1], 'r'))
-doc_freq = json.load(open("%s.freq" % sys.argv[1], 'r'))
-misc = json.load(open("%s.misc" % sys.argv[1], 'r'))
+vocab = json.load(open( "%s.vocab" % sys.argv[3], 'r'))
+doc_freq = json.load(open("%s.freq" % sys.argv[3], 'r'))
+misc = json.load(open("%s.misc" % sys.argv[3], 'r'))
 TOTAL_DOC = misc["total_doc"]
 AVG_DOC_LEN = misc["avg_len"]
 
@@ -46,5 +46,11 @@ with open(sys.argv[1], "r") as f:
         qry += line
 
 qry_vec = getVector(qry)
-for i in qry_vec:
-    print(i, end=" ")
+
+with open(sys.argv[2], "r") as f:
+    qry2 = ""
+    for line in f.readlines():
+        qry2 += line
+
+qry2_vec = getVector(qry2)
+print(Np.dot(qry_vec, qry2_vec) / (Np.linalg.norm(qry_vec) * Np.linalg.norm(qry2_vec)))
