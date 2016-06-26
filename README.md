@@ -1,9 +1,11 @@
 # NTU IR Final Project
 
-Please check the Issues to follow the latest progress.
+[Report](https://hackmd.io/IwQwZsAMCcYKwForAOwICwsgDgSATCgMYIBspkARuNgCaUCmtAzEA===#)
 
 # usage of Jieba
+
 `pip3 install jieba`
+
 `jieba.set_dictionary('dict.txt.big')`
 
 # spec
