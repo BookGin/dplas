@@ -15,9 +15,8 @@ with open(sys.argv[1], "r") as f:
     for doc in f.readlines():
         docs.append(jieba.cut_for_search(doc))
 
-with open(sys.argv[2], "w") as f:
-    for doc in docs:
-        for term in doc:
-            f.write(term + " ")
-        f.write("\n")
+for doc in docs:
+    for term in doc:
+        print(term, end = " ")
+    print()
 
