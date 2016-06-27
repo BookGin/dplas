@@ -5,6 +5,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer , CountVectorizer
 # from bm25 import TfidfVectorizer
 from sklearn.externals import joblib
 
+from src.helper.bigram import get_words
+
 import json
 import numpy as np
 import scipy as sp
@@ -13,34 +15,25 @@ import string
 
 import os
 
-N_CLUS  = 15
+N_CLUS  = 12
 N_CLASS = 6
 
-punct = set(u''':!),.:;?]}¢'"、。〉》」』】〕】〞︰︱︳﹐､﹒
-            ﹔﹕﹖﹗﹚﹜﹞！），．：；？｜｝︴︶︸︺︼︾﹀﹂﹄﹏､～￠
-            々∥•‧ˇˉ─--′』」([{£¥'"‵〈《「『【〔【（［｛￡￥〝︵︷︹︻
-            ︽︿﹁﹃﹙﹛﹝（｛「『-—_…''')
+# bad_topic = [ 6 , 7 , 9 , 13 ]
+bad_topic = []
 
-punct.union( string.punctuation )
-punct.union( string.whitespace )
-
-jieba.enable_parallel(4)
-
-def get_words( text ):
-    raw_words = jieba.cut_for_search( text )
-    return " ".join( filter( lambda s:s not in punct , raw_words ) )
+# jieba.enable_parallel(4)
 
 datas = []
 
-if os.path.isfile( "all_data.pkl" ):
-    datas = joblib.load( "all_data.pkl" )
+if os.path.isfile( "./pkls/all_data.pkl" ):
+    datas = joblib.load( "./pkls/all_data.pkl" )
 else:
     for path , subdirs , files in os.walk( './data' ):
         for file in files:
             if file[ -5 : ] == ".json":
                 datas += json.load( open( os.path.join( path , file ) , 'r' ) )
         print( path , subdirs , files )
-    joblib.dump( datas , "all_data.pkl" )
+    joblib.dump( datas , "./pkls/all_data.pkl" )
 
 print( "all data done" )
 print( datas[ :10 ] )
@@ -48,13 +41,13 @@ print( len( datas ) )
 
 corpus = []
 
-if os.path.isfile( 'seg_poli_talk_corpus.pkl' ):
-    corpus = joblib.load( './seg_poli_talk_corpus.pkl' )
+if os.path.isfile( './pkls/seg_poli_talk_corpus.pkl' ):
+    corpus = joblib.load( './pkls/seg_poli_talk_corpus.pkl' )
 else:
     for obj in datas:
         corpus.append( get_words( obj[ 'body' ] ) )
 
-    joblib.dump( corpus , "seg_poli_talk_corpus.pkl" )
+    joblib.dump( corpus , "./pkls/seg_poli_talk_corpus.pkl" )
 
 print( corpus[ :10 ] )
 
@@ -69,27 +62,33 @@ def get_term_mat():
 vec = None
 X = None
 
-if os.path.isfile( './bm25_poli_talk_mat.pkl' ):
-    X , vec = joblib.load( './bm25_poli_talk_mat.pkl' )
+if os.path.isfile( './pkls/bm25_poli_talk_mat.pkl' ):
+    X , vec = joblib.load( './pkls/bm25_poli_talk_mat.pkl' )
 else:
     X , vec = get_term_mat()
-    joblib.dump( ( X , vec ) , "bm25_poli_talk_mat.pkl" )
+    joblib.dump( ( X , vec ) , "./pkls/bm25_poli_talk_mat.pkl" )
 
 print( "matrix done" )
 
 clus = None
 
-if os.path.isfile( './bm25_kmeans_model.pkl' ):
-    clus = joblib.load( './bm25_kmeans_model.pkl' )
+if os.path.isfile( './pkls/bm25_kmeans_model.pkl' ):
+    clus = joblib.load( './pkls/bm25_kmeans_model.pkl' )
 else:
-    clus = KMeans( n_clusters=N_CLUS , n_init=N_CLUS+5 )
+    clus = KMeans( n_clusters=N_CLUS , n_init=N_CLUS+5 , n_jobs=6 )
     clus = clus.fit( X )
-    joblib.dump( clus , "bm25_kmeans_model.pkl" )
+    joblib.dump( clus , "./pkls/bm25_kmeans_model.pkl" )
+
+ids = clus.predict( X )
+
+inv_topic = [ [] for i in range( N_CLUS ) ]
+
+for i in range( len( ids ) ):
+    inv_topic[ ids[ i ] ].append( i )
 
 print( "cluster done" )
 
 if __name__ == '__main__':
-    ids = clus.predict( X )
 
     cur = 0
 
@@ -105,9 +104,9 @@ if __name__ == '__main__':
 
     print( "corpus.json done" )
 
-    # fos = [ open( "%d.list" % i , 'w' ) for i in range( 15 ) ]
+    fos = [ open( "%dseg.txt" % i , 'w' ) for i in range( 15 ) ]
 
-    # for ( i , id ) in enumerate( ids ):
-        # fos[ id ].write( corpus[ i ] + '\n' )
+    for ( i , id ) in enumerate( ids ):
+        fos[ id ].write( corpus[ i ] + '\n' )
 
 

@@ -13,7 +13,7 @@ import jieba
 import string
 
 import os
-from topic_cluster import *
+from src.topic_cluster import *
 
 def turn_to_sparse( A ):
     if len( A ) == 0:
@@ -36,35 +36,33 @@ print( "do model.py" )
 logs = [ None for i in range( N_CLUS ) ]
 
 topics = clus.predict( X )
+D = clus.transform( X )
 
 Xs = [ [] for i in range( N_CLUS ) ]
 Ys = [ [] for i in range( N_CLUS ) ]
 
 print( "going to turn_to_sparse" )
 
-if os.path.isfile( "topic_train_data.pkl" ):
-    Xs = joblib.load( "topic_train_data.pkl" )
+
+if os.path.isfile( "./pkls/topic_train_data.pkl" ):
+    ( Xs , Ys ) = joblib.load( "./pkls/topic_train_data.pkl" )
 else:
     each_label = [ [] for i in range( N_CLASS ) ]
 
     for ( i , obj ) in enumerate( datas ):
         if obj[ 'label' ] != -1:
-            each_label[ obj[ 'label' ] ].append( X[ i ] )
-
-    def important( x ):
-        dis = clus.transform( x )
-        return dis.min()
+            each_label[ obj[ 'label' ] ].append( i )
 
     print( "build important label doc" )
-    
     for i in range( N_CLASS ):
         print( "doing %d" % i )
-        xs = [ ( important( each_label[ i ][ j ] ) , j ) for j in range( len( each_label[ i ] ) ) ]
+        xs = [ ( D[ j ].min() , j ) for j in range( len( each_label[ i ] ) ) ]
         print( "xs done" )
         xs.sort()
-        each_label[ i ] = map( lambda p:p[ 1 ] , xs[ :3000 ] )
+        each_label[ i ] = list( map( lambda p:p[ 1 ] , xs[ :3000 ] ) )
         print( "len %d" % len( each_label[ i ] ) )
-        for x in each_label[ i ]:
+        for id in each_label[ i ]:
+            x = X[ id ]
             topic = clus.predict( x )[ 0 ]
             Xs[ topic ].append( x )
             Ys[ topic ].append( i )
@@ -72,25 +70,29 @@ else:
     print( "go to turn_to_sparse" )
 
     for i in range( N_CLUS ):
+        if len( set( Ys[ i ] ) ) == 1:
+            Xs[ i ].append( csr_matrix( Xs[ i ][ 0 ].shape ) )
+            Ys[ i ].append( -1 )
         Xs[ i ] = turn_to_sparse( Xs[ i ] )
 
-    joblib.dump( Xs , "topic_train_data.pkl" )
+    joblib.dump( ( Xs , Ys ) , "./pkls/topic_train_data.pkl" )
 
 print( "each topic sparse matrix done" )
 
 for i in range( N_CLUS ):
-    print( 'labeled data topic %d : %d' % ( i , len( Xs[ i ] ) ) )
+    print( 'labeled data topic %d : %d' % ( i , len( Ys[ i ] ) ) )
 
-if os.path.isfile( "log_reg_model.pkl" ):
-    logs = joblib.load( "log_reg_model.pkl" )
+if os.path.isfile( "./pkls/log_reg_model.pkl" ):
+    logs = joblib.load( "./pkls/log_reg_model.pkl" )
 else:
     for i in range( N_CLUS ):
         print( "now on topic %d's log reg" % i )
-        log = LogisticRegression( n_jobs=-1 )
-        if len( Ys[ i ] ) > 0:
+        log = LogisticRegression( class_weight="balanced" , n_jobs=-1 )
+        if len( Ys[ i ] ) > 0 and i not in bad_topic:
+            print( "fit topic %d" % i )
             log = log.fit( Xs[ i ] , Ys[ i ] )
         logs[ i ] = log
-    joblib.dump( logs , "log_reg_model.pkl" )
+    joblib.dump( logs , "./pkls/log_reg_model.pkl" )
 
 print( "log_reg model done" )
 
@@ -115,9 +117,11 @@ def predict( raw_docs ):
     for i in range( len( topics ) ):
         topic = topics[ i ]
         d = ds[ i ]
-        res.append( logs[ topic ].predict_proba( d ) )
+        # print( clus.transform( d ) )
+        res.append( ( logs[ topic ].predict_proba( d ) , logs[ topic ].classes_ ) )
 
-    return res
+    return ( topics , res )
+
 
 
 

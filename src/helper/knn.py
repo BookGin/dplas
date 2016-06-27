@@ -24,4 +24,4 @@ def cosineSimilarity(v1, v2):
     return dot(v1, v2) / (np.sqrt(dot(v1, v1)) * np.sqrt(dot(v2, v2)))
 
 def dot(v1, v2):
-    return np.dot(v1, v2.T)[0]
+    return ( v1 * v2.T )[0]

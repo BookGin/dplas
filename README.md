@@ -35,3 +35,13 @@ wget 'https://www.csie.ntu.edu.tw/~b03902078/ir/talk.json'
 wget 'https://www.csie.ntu.edu.tw/~b03902078/ir/society.json'
 wget 'https://www.csie.ntu.edu.tw/~b03902078/ir/politics.json'
 ```
+
+
+# Labels
+
+kmt 0
+dpp 1
+時力 2
+親民 3
+綠黨 4
+社民 5
