@@ -40,7 +40,7 @@
 					<section id="two" style="display:none;">
 						<h2>Say anything.</h2>
 						<div id="input-box">
-							<div class="12u$"><textarea name="message" id="talk-0" placeholder="Say something." rows="4"></textarea></div>
+							<div class="12u$"><textarea class="talk-box" name="message" id="talk-0" placeholder="Say something." rows="4"></textarea></div>
 						</div>
 						<button type="button" onclick="addInput()" class="btn btn-info btn-circle btn-lg" align="right"><i class="glyphicon glyphicon-plus"></i></button>
 					</section>
@@ -49,31 +49,23 @@
 					<section id="three" style="display:none;">
 						<h4>Choose the 1 in 2 you favors more.</h4>
 						<div id="select-area">
-							<!--	
-								<div class="panel panel-warning">
-									<div class="panel-body">
-										<table class="table table-striped selection" id="select-1">
-											<tr id="select-1-1"><td>
-												<p>Accumsan pellentesque commodo blandit enim arcu non at amet id arcu magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem vulputate lorem neque lorem ipsum dolor.</p>
-											</td></tr>
-											<tr id="select-1-2"><td>
-												<p>Accumsan pellentesque commodo blandit enim arcu non at amet id arcu magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem vulputate lorem neque lorem ipsum dolor.</p>
-											</td></tr>
-										</table>
-									</div>
-									<div class="panel-footer">
-										You choose: 
-									</div>
-								</div>
-							-->
+
 						</div>
 						<ul class="actions">
-							<li><a href="#" class="button">Full Portfolio</a></li>
+							<li><button class="button button-info" align="center" onclick="eva()">Evaluate!</button></li>
 						</ul>
 					</section>
 
 				<!-- Four -->
-					<section id="four">
+					<section id="four" style="display: none;">
+						<h3>HOT Result!</h3>
+						<canvas id="chart-box" width="400" height="400"></canvas>
+						
+						
+					</section>
+
+				<!-- Five -->
+					<section id="five">
 						<h2>Get In Touch</h2>
 						<p>Accumsan pellentesque commodo blandit enim arcu non at amet id arcu magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem vulputate lorem neque lorem ipsum dolor.</p>
 						<div class="row">
@@ -132,6 +124,7 @@
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/Chart.min.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/index.js"></script>
 

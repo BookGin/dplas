@@ -1,7 +1,6 @@
 # coding=utf-8
 
 import sys, json
-from c_model import model
 
 count = 0
 
@@ -39,6 +38,7 @@ def main():
 	global count
 
 	sys.stderr.write(' >>>>>>  IR server runed \n')
+	sys.stderr.flush()
 
  	# jieba.set_dictionary( 'dict.txt.big' )
 
@@ -52,12 +52,14 @@ def main():
 
 		elif line.split()[0] == 'Eva': # 1
 
-			line = line.replace( 'Eva ', '', 1 )
-			obj = json.load( line )
-			sys.stderr.write( 'Evaluate data #' + obj[ 'index' ] + ': ' + obj[ 'result' ] + '\n' )
+			line = line.replace( 'Eva ', '', 1 )[:-1]
+			obj = json.loads( line )
+			sys.stderr.write( 'Evaluate data #' + str(obj[ 'index' ]) + ': input length ' + str(len(obj[ 'input' ])) + '\n' )
+			print( '1 ' + json.dumps( evaluate( obj ) ) )
 		else:
 			sys.stderr.write( 'Got invalid: ' + line )
 
+		sys.stderr.flush()
 		sys.stdout.flush()
 		
 	sys.stderr.write('******************************\n')	
