@@ -1,10 +1,14 @@
 
 import string
 
-punct = set(u''':!),.:;?]}¢'"、。〉》」』】〕】〞︰︱︳﹐､﹒
-            ﹔﹕﹖﹗﹚﹜﹞！），．：；？｜｝︴︶︸︺︼︾﹀﹂﹄﹏､～￠
+punct = set(u'''¢、。〉》」』】〕】〞︰︱︳﹐､﹒
+            ﹔﹕﹖﹗﹚﹜﹞！），．：；？｜｝︴︶︸︺︼︾﹀﹂﹄　﹏､～￠
             々∥•‧ˇˉ─--′』」([{£¥'"‵〈《「『【〔【（［｛￡￥〝︵︷︹︻
-            ︽︿﹁﹃﹙﹛﹝（｛「『-—_…''')
+            ，、。．？！～＄％＠＆＃＊‧；︰…‥﹐﹒˙·﹔﹕‘’“”〝〞‵′〃◎⊕⊙○
+            ●△▲▽▼☆★◇◆□︵︶︷︸︹︺︻︼︽︾︿﹀∩∪﹁﹂﹃﹄〔〕【】﹝﹞〈〉
+            ﹙﹚《》（）｛｝﹛﹜『』「」＜＞≦≧﹤﹥﹣﹦≡｜∣∥–︱—︳╴¯￣﹉
+            ﹊﹍﹎﹋﹌﹏︴﹨∕╲╱＼／↑↓←→↖↗↙↘
+            ︽︿﹁﹃﹙﹛﹝（｛「『-—_!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~…''')
 
 punct.union( string.punctuation )
 punct.union( string.whitespace )
@@ -17,7 +21,9 @@ def get_words( text ):
     res = " ".join( raw_words )
     res = res.replace( '\n' , '' )
     res = res.replace( '\r' , '' )
+    res = res.replace( '\t' , '' )
     res = res.replace( '\\n' , '' )
     res = res.replace( '\\r' , '' )
+    res = ' '.join(res.split())
     return res
 
