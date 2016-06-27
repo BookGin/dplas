@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>政治羅盤 D-Plus -- Parser</title>
+</head>
+<body>
+	<h1>D-Plus</h1>
+	<h4>我知道你說了什麼呦ㄎㄎ</h4>
+	<textarea name="paragraph_text" cols="100" rows="1" id="words">微波加熱的飛機餐吃起來跟真的一樣！</textarea>
+	<button id="result">分解他！</button>
+	<p id="ans"></p>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#result').click(function() {
+				var value = $('#words').val()
+				$.post( "ajax/parse", { data: value },  function( data ) {
+					console.log( value );
+					$( "#ans" ).html( data );
+					alert( "Load was performed." );
+				}, "json");
+			});
+		});
+	</script>
+</body>
+</html>

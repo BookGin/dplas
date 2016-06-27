@@ -1,0 +1,31 @@
+{
+		"name": "IRdeep",
+		"preferGlobal": true,
+		"private": true,
+		"version": "0.0.0",
+		"author": "Amy Lin <linamy85@gmail.com> ",
+		"description": "Web interface of IR final project",
+		"scripts": {
+				"start": "supervisor app.js",
+				"stop": "forever stopall"
+		},
+		"analyze": false,
+		"license": "MIT",
+		"dependencies": {
+				"body-parser": "~1.13.2",
+				"cookie-parser": "~1.3.5",
+				"crypto": "0.0.3",
+				"debug": "~2.2.0",
+				"ejs": "2.4.1",
+				"errorhandler": "^1.4.3",
+				"express": "~4.13.1",
+				"express-session": "1.7.6",
+				"forever": "^0.15.1",
+				"method-override": "^2.3.5",
+				"morgan": "~1.6.1",
+				"reliable-signaler": "1.0.2",
+				"serve-favicon": "~2.3.0",
+				"supervisor": "~0.9.1"
+		}
+}
+
