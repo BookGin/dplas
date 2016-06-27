@@ -4,7 +4,7 @@ import math
 import sys
 import jieba
 import json
-jieba.set_dictionary('./../dict.txt.big')
+jieba.set_dictionary('../../../dict.txt.big')
 
 # Segment docs per line with space
 # Usage: ./genInverted.py input output
