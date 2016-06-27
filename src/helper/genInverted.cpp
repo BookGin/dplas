@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
   Map vocab;
   Map doc_freq;
 
-  ifstream fp(argv[1]);
+  ifstream fp(string(argv[1]) + string(".txt"));
   assert(fp);
 
   string line; 
@@ -52,11 +52,11 @@ int main(int argc, char* argv[])
   json_misc["total_len"] = total_len;
   json_misc["avg_len"] = double(total_len) / total_doc;
 
-  ofstream out_vocab(string(argv[2]) + string(".vocab"));
+  ofstream out_vocab(string(argv[1]) + string(".vocab"));
   out_vocab << json_vocab.dump();
-  ofstream out_freq(string(argv[2]) + string(".freq"));
+  ofstream out_freq(string(argv[1]) + string(".freq"));
   out_freq << json_freq.dump();
-  ofstream out_misc(string(argv[2]) + string(".misc"));
+  ofstream out_misc(string(argv[1]) + string(".misc"));
   out_misc << json_misc.dump();
 
   out_vocab.close();
