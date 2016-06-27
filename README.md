@@ -16,6 +16,10 @@
 
 [data](https://drive.google.com/folderview?id=0B97NsvGFvI6Nc3hNQ29FbkZWOEk&usp=sharing)
 
+# PPT
+
+[PPT](https://docs.google.com/presentation/d/1f3QAF6axzQVKRpBxXrxHahaJ04NzYImHmC_ND7JUK3Y/edit?usp=sharing)
+
 
 # Liberty Times News
 - Spec:
