@@ -6,8 +6,14 @@ import sys
 import jieba
 jieba.set_dictionary('dict.txt.big')
 
+issue_model = None
+
 def load(path_prefix):
-    return IssueModel(path_prefix)
+    global issue_model
+    issue_model = IssueModel(path_prefix)
+
+def measure(raw_text, topic_index):
+    return issue_model.measure(raw_text, topic_index)
 
 class IssueModel:
     OKAPI_K = 1.6
@@ -18,10 +24,6 @@ class IssueModel:
     TOTAL_DOCS = []
     AVG_DOC_LENS = []
     total_load_file = 0
-
-    def __call__(self, raw_text, topic_index):
-        doc = self.cut(raw_text)
-        return self.getVector(doc, topic_index)
 
     def __init__(self, path_prefix):
         while self.total_load_file >= 0:
@@ -37,6 +39,10 @@ class IssueModel:
                 sys.stderr.write("%d.{vocab, freq, misc} not found\n" % self.total_load_file)
                 sys.stderr.write("Loaded %d inverted files successfully\n" % self.total_load_file)
                 return
+
+    def measure(self, raw_text, topic_index):
+        doc = self.cut(raw_text)
+        return self.getVector(doc, topic_index)
 
     def getTF(self, term, doc, topic_index):
         raw_tf = doc.count(term)
