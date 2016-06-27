@@ -20,19 +20,13 @@ data = json.loads(corpus)
 output_path = sys.argv[2]
 topics = {}
 for doc in data:
-    print("topic" + str(doc["topic"]) + "docs is" + doc["body"])
-    print("<end>")
     string = bigram.get_words(doc["body"])
     topic_num = doc["topic"]
     if topic_num not in topics:
         topics[topic_num] = []
-    print(type(topics[topic_num]))
     topics[topic_num].append(string + "\n")
-    print(topics[topic_num], end="\n\n\n\n")
 
 print("Finish traversing corpus.json")
-print(topics[10])
-print("==============================")
 
 for topic_index in topics.keys():
     path = "%s/%d.txt" % (output_path, topic_index)
