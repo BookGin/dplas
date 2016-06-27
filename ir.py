@@ -8,7 +8,7 @@ count = 0
 # Read data from stdin
 def read_in():
     line = sys.stdin.readline()
-        return json.load(line)
+    return json.load(line)
 
 # random generate a json
 def gen():
@@ -31,14 +31,14 @@ def gen():
 # @return: string, text of this random doc
 def genRandomDocInTopic(topic_index):
     #TODO
-    return model . genRandomDocInTopic(topic_index)
+    return src.test.genRandomDocInTopic(topic_index)
 
 def evaluate( data ):
     # data = {index: 1, input: ["我喜歡","jhk",...]}
     # this program should store which index store what docs
     # by the index and the choice seq 010101001
     # this function returns the result: [0.5, 0.0, 0.12, 0.3, 0.04, 0.04]
-    return src.user.predict_user(data["input"], method = "KNN")
+    return src.test.predict_user( data["input"] , method = "KNN" )
 
 def main():
     global count

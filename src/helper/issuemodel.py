@@ -3,7 +3,7 @@ import math
 import json
 import sys
 
-import bigram
+import src.helper.bigram
 
 issue_model = None
 
