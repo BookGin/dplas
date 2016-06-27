@@ -7,8 +7,10 @@
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="assets/css/ring.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/index.css" />
 	</head>
 	<body id="top">
 
@@ -17,7 +19,7 @@
 				<a href="#" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
 				<h1><strong>DeePLAS</strong><br />
 				a powerful political leaning detector<br />
-				(台灣限定) ONLY FOR TAIWAN PARTIES.<br />
+				ONLY FOR TAIWAN PARTIES.(台灣限定) <br />
 				Made by NTU CSIE students.</h1>
 			</header>
 
@@ -27,86 +29,57 @@
 				<!-- One -->
 					<section id="one">
 						<header class="major">
-							<h2>What do we do?</h2>
+							<h2 class="tit">What do we do?</h2>
 						</header>
-						<p>Using the techniques of information retrieval & Mining, discover your deep political leaning, by answering questions below.</p>
-						
+						<p class="tit">Using the techniques of information retrieval & Mining, discover your deep political leaning, by answering questions below.</p>
+
 						<button class="button" onclick="loadtest()" id="loadtest">Start evaluating!</button>
 						<div class="uil-ring-css" style="-webkit-transform:scale(0.40); display:none;" id="loadring"><div></div></div>
-						
+
 					</section>
 
 				<!-- Two -->
 					<section id="two" style="display:none;">
 						<h2>Say anything.</h2>
 						<div id="input-box">
-							<div class="12u$"><textarea name="message" id="talk-0" placeholder="Say something." rows="4"></textarea></div>
+							<div class="12u$"><textarea class="talk-box" name="message" id="talk-0" placeholder="Say something." rows="4"></textarea></div>
 						</div>
 						<button type="button" onclick="addInput()" class="btn btn-info btn-circle btn-lg" align="right"><i class="glyphicon glyphicon-plus"></i></button>
 					</section>
 
 				<!-- Three -->
 					<section id="three" style="display:none;">
-						<h4>Choose the 1 in 2 you favors more.</h4>
+						<h4 class="tit">Choose the 1 in 2 you favors more.</h4>
 						<div id="select-area">
-							<!--	
-								<div class="panel panel-warning">
-									<div class="panel-body">
-										<table class="table table-striped selection" id="select-1">
-											<tr id="select-1-1"><td>
-												<p>Accumsan pellentesque commodo blandit enim arcu non at amet id arcu magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem vulputate lorem neque lorem ipsum dolor.</p>
-											</td></tr>
-											<tr id="select-1-2"><td>
-												<p>Accumsan pellentesque commodo blandit enim arcu non at amet id arcu magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem vulputate lorem neque lorem ipsum dolor.</p>
-											</td></tr>
-										</table>
-									</div>
-									<div class="panel-footer">
-										You choose: 
-									</div>
-								</div>
-							-->
+
 						</div>
 						<ul class="actions">
-							<li><a href="#" class="button">Full Portfolio</a></li>
+							<li><button class="button button-info tit" align="center" onclick="eva()">Evaluate!</button></li>
 						</ul>
 					</section>
 
 				<!-- Four -->
-					<section id="four">
-						<h2>Get In Touch</h2>
-						<p>Accumsan pellentesque commodo blandit enim arcu non at amet id arcu magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem vulputate lorem neque lorem ipsum dolor.</p>
+					<section id="four" style="display: none;">
+						<h3 class="tit">HOT Result!</h3>
+						<canvas id="chart-box" width="400" height="400"></canvas>
+
+
+					</section>
+
+				<!-- Five -->
+					<section id="five">
+						<h2 class="tit">Get In Touch</h2>
 						<div class="row">
-							<div class="8u 12u$(small)">
-								<form method="post" action="#">
-									<div class="row uniform 50%">
-										<div class="6u 12u$(xsmall)"><input type="text" name="name" id="name" placeholder="Name" /></div>
-										<div class="6u$ 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Email" /></div>
-										<div class="12u$"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
-									</div>
-								</form>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
-							</div>
-							<div class="4u$ 12u$(small)">
-								<ul class="labeled-icons">
-									<li>
-										<h3 class="icon fa-home"><span class="label">Address</span></h3>
-										1234 Somewhere Rd.<br />
-										Nashville, TN 00000<br />
-										United States
-									</li>
-									<li>
-										<h3 class="icon fa-mobile"><span class="label">Phone</span></h3>
-										000-000-0000
-									</li>
-									<li>
-										<h3 class="icon fa-envelope-o"><span class="label">Email</span></h3>
-										<a href="#">hello@untitled.tld</a>
-									</li>
-								</ul>
-							</div>
+							<div class="col-md-3"><a href="https://github.com/BookGin"><img class="img-thumbnail author" src="images/gin.png" alt="Gin"></img></a></div>
+							<div class="col-md-3"><a href="https://github.com/c2251393"><img class="img-thumbnail author" src="images/li.png" alt="Li"></img></a></div>
+							<div class="col-md-3"><a href="https://github.com/linamy85"><img class="img-thumbnail author" src="images/amy.jpg" alt="Amy"></img></a></div>
+							<div class="col-md-3"><a href="https://github.com/Pomelo0126"><img class="img-thumbnail author" src="images/pomelo.jpg" alt="Pomelo"></img></a></div>
+						</div>
+						<div class="row tit">
+							<div class="col-md-3" align="center"><h5>Book Gin</h5></div>
+							<div class="col-md-3" align="center"><h5>AkaiNeko</h5></div>
+							<div class="col-md-3" align="center"><h5>Amy Lin</h5></div>
+							<div class="col-md-3" align="center"><h5>Pomelo</h5></div>
 						</div>
 					</section>
 
@@ -122,7 +95,7 @@
 					<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
 				</ul>
 				<ul class="copyright">
-					<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					<li>&copy; DeePLAS 2016</li>
 				</ul>
 			</footer>
 
@@ -132,6 +105,7 @@
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/Chart.min.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/index.js"></script>
 

@@ -1,7 +1,7 @@
 # coding=utf-8
 
 import sys, json, random
-import src.test
+# import src.test
 
 count = 0
 
@@ -41,33 +41,34 @@ def evaluate( data ):
     return src.test.predict_user( data["input"] , method = "KNN" )
 
 def main():
-    global count
+	global count
 
-    sys.stderr.write(' >>>>>>  IR server runed \n')
+	sys.stderr.write(' >>>>>>  IR server runed \n')
+	sys.stderr.flush()
 
-    # jieba.set_dictionary( 'dict.txt.big' )
+	# jieba.set_dictionary( 'dict.txt.big' )
 
-    # get our data as an array from read_in()
-    for line in sys.stdin:
+	# get our data as an array from read_in()
+	for line in sys.stdin:
 
-        if line.split()[0] == 'Load': # 0
+		if line.split()[0] == 'Load': # 0
 
-            sys.stderr.write( 'Loading data #' + str(count) + '\n' )	
-            print( '0 ' + json.dumps( gen() ) )
+			sys.stderr.write( 'Loading data #' + str(count) + '\n' )	
+			print( '0 ' + json.dumps( gen() ) )
 
-        elif line.split()[0] == 'Eva': # 1
+			line = line.replace( 'Eva ', '', 1 )[:-1]
+			obj = json.loads( line )
+			sys.stderr.write( 'Evaluate data #' + str(obj[ 'index' ]) + ': input length ' + str(len(obj[ 'input' ])) + '\n' )
+			print( '1 ' + json.dumps( evaluate( obj ) ) )
+		else:
+			sys.stderr.write( 'Got invalid: ' + line )
 
-            line = line.replace( 'Eva ', '', 1 )
-            obj = json.load( line )
-            sys.stderr.write( 'Evaluate data #' + obj[ 'index' ] + ': ' + obj[ 'result' ] + '\n' )
-        else:
-            sys.stderr.write( 'Got invalid: ' + line )
-
-        sys.stdout.flush()
-
-    sys.stderr.write('******************************\n')	
-    sys.stderr.write(' >>>>>>  IR server finished \n')
-    sys.stderr.write('******************************\n')	
+		sys.stderr.flush()
+		sys.stdout.flush()
+		
+	sys.stderr.write('******************************\n')	
+	sys.stderr.write(' >>>>>>  IR server finished \n')
+	sys.stderr.write('******************************\n')	
 
 #start process
 if __name__ == '__main__':
