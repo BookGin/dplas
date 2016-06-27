@@ -13,7 +13,7 @@ def main():
 	#get our data as an array from read_in()
 	for line in sys.stdin:
 		sys.stderr.write( 'get' + line + '\n' )
-		print( " ".join( jieba.cut( line, cut_all=False ) ) ) 
+		print( "0 " + " ".join( jieba.cut( line, cut_all=False ) ) ) 
 
 		sys.stdout.flush()
 		

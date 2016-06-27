@@ -1,6 +1,12 @@
 
 var testid;
+var inputid = 1;
 
+var addInput = function() {
+	$('#input-box').append( '<br /><div class="12u$"><textarea name="message" id="talk-' + inputid + '" placeholder="Say something." rows="4"></textarea></div>' );
+	inputid ++;
+
+};
 
 var loadtest = function() {
 	console.log('load start');
