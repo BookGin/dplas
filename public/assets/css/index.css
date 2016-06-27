@@ -13,4 +13,21 @@ e.btn-lg {
 	border-radius: 25px;
 }
 
+.author {
+	width: 150px;
+	height: 150px;
+}
+
+.tit {
+	font-family: 'PT Sans', sans-serif;
+}
+
+h5 {
+	font-size: 150%;
+}
+
+p , button{
+	font-size: 120%;
+}
+
 

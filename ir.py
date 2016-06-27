@@ -1,14 +1,14 @@
 # coding=utf-8
 
 import sys, json, random
-import src.test
+# import src.test
 
 count = 0
 
 # Read data from stdin
 def read_in():
     line = sys.stdin.readline()
-        return json.load(line)
+    return json.load(line)
 
 # random generate a json
 def gen():
@@ -41,20 +41,20 @@ def evaluate( data ):
     return src.user.predict_user(data["input"], method = "KNN")
 
 def main():
-    global count
+	global count
 
 	sys.stderr.write(' >>>>>>  IR server runed \n')
 	sys.stderr.flush()
 
-    # jieba.set_dictionary( 'dict.txt.big' )
+	# jieba.set_dictionary( 'dict.txt.big' )
 
-    # get our data as an array from read_in()
-    for line in sys.stdin:
+	# get our data as an array from read_in()
+	for line in sys.stdin:
 
-        if line.split()[0] == 'Load': # 0
+		if line.split()[0] == 'Load': # 0
 
-            sys.stderr.write( 'Loading data #' + str(count) + '\n' )	
-            print( '0 ' + json.dumps( gen() ) )
+			sys.stderr.write( 'Loading data #' + str(count) + '\n' )	
+			print( '0 ' + json.dumps( gen() ) )
 
 			line = line.replace( 'Eva ', '', 1 )[:-1]
 			obj = json.loads( line )
