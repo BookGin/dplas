@@ -332,19 +332,17 @@ To analyze a user's political leaning, we first have to extract the user's infor
 
 Then we use our algorithm above to estimate the probability $Pr( x \text{ is similar to posts of political party } y \| x , \theta )$ of each post it wrote. But it remains an issue \: what is the political leaning of that user given his post's political bias ?
 
-Here we just average all political bias of its posts and treat it as the political leaning of that user. The algorithm is \textit{K-Nearest Neighbors} and \textit{logistic regression}, with \textit{cosine similarity}.
+Here we just average all political bias of its posts and treat it as the political leaning of that user. Next, we apply \textit{K-Nearest Neighbors} algorithm to find k-nearest vectors (\textit{logistic regression} is also used) with \textit{cosine similarity}. Finally, we make k-nearest vectors to "vote" political leanings of user's posts.
 
-But one more issue remains : what if that user don't posts a lot?
+But one more issue remains : what if that user don't post a lot?
 
 Here we use an active-learning-flavored idea : provide several posts from out data set and make the user to choose which it identify with. The post the user choose can be seen as the post it wrote. And the extended user posts set is then applied with our algorithm to figure out the political leaning.
 
 \section{Result}
 
-The results shown in table 1 are estimated probability of having political leaning similar to some party. The order is 國民黨,民進黨,時代力量,親民黨,綠黨,社會民主黨.
+The ground truth of a person's political leanings is hard to define. Hence, we estimate legislators' political leanings of different known parties. The results shown in \textit{table 1} are estimated probability of having political leaning similar to some party. The order is 國民黨, 民進黨, 時代力量, 親民黨, 綠黨, 社會民主黨 respectively.
 
-The ground truth of a person's political leanings is hard to define. What's worse, we found people tend to post neutral and ambiguous remarks. Thus, the precision is limited because so many documents are too similar.
-
-In addition,  in Taiwan, politics of different parties are similar as well. Their choice of words doesn't differ so much. Therefore in vector space model, we can't distinguish them will based on words.
+We found in most case, if the user input is sufficient and highly related to politics, the political leanings we predict is very precise. However, if user tends to post neutral and ambiguous remarks, the precision will be limited. When user's posts are unbiased, there are too many similar documents.
 
 \section{Work Distribution}
 
