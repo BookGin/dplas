@@ -2,14 +2,14 @@
 import math
 import json
 import sys
-import jieba
-jieba.set_dictionary('dict.txt.big')
+
+import bigram
 
 issue_model = None
 
-def load(path_prefix):
+def load(db_path_prefix):
     global issue_model
-    issue_model = IssueModel(path_prefix)
+    issue_model = IssueModel(db_path_prefix)
 
 def measure(raw_text, topic_index):
     return issue_model.measure(raw_text, topic_index)
@@ -60,7 +60,4 @@ class IssueModel:
         return vec
 
     def cut(self, text):
-        li = []
-        for word in jieba.cut_for_search(text):
-            li.append(word)
-        return li
+        return bigram.get_words(text).split(" ")
