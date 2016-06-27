@@ -32,12 +32,12 @@ else:
         for file in files:
             if file[ -5 : ] == ".json":
                 datas += json.load( open( os.path.join( path , file ) , 'r' ) )
-        print( path , subdirs , files )
+        sys.stderr.write( path + subdirs + files + '\n' )
     joblib.dump( datas , "./pkls/all_data.pkl" )
 
-print( "all data done" )
-print( datas[ :10 ] )
-print( len( datas ) )
+sys.stderr.write( "all data done\n" )
+sys.stderr.write( str(datas[ :10 ])+'\n' )
+sys.stderr.write( str( len( datas ) )+'\n' )
 
 corpus = []
 
@@ -49,7 +49,7 @@ else:
 
     joblib.dump( corpus , "./pkls/seg_poli_talk_corpus.pkl" )
 
-print( corpus[ :10 ] )
+sys.stderr.write( str(corpus[ :10 ] )+'\n' )
 
 def get_term_mat():
     # vectorizer = TfidfVectorizer( use_bm25idf=True , bm25_tf=True )
@@ -68,7 +68,7 @@ else:
     X , vec = get_term_mat()
     joblib.dump( ( X , vec ) , "./pkls/bm25_poli_talk_mat.pkl" )
 
-print( "matrix done" )
+sys.stderr.write( "matrix done\n" )
 
 clus = None
 
@@ -86,7 +86,7 @@ inv_topic = [ [] for i in range( N_CLUS ) ]
 for i in range( len( ids ) ):
     inv_topic[ ids[ i ] ].append( i )
 
-print( "cluster done" )
+sys.stderr.write( "cluster done\n" )
 
 if __name__ == '__main__':
 
@@ -102,7 +102,7 @@ if __name__ == '__main__':
 
     json.dump( datas , open( 'corpus.json' , 'w' ) , ensure_ascii=False )
 
-    print( "corpus.json done" )
+    sys.stderr.write( "corpus.json done\n" )
 
     fos = [ open( "%dseg.txt" % i , 'w' ) for i in range( 15 ) ]
 

@@ -36,7 +36,7 @@ def knn_predict_post( post ):
     d = tc.vec.transform( [ bigram.get_words( post ) ] )
     topic = tc.clus.predict( d )[ 0 ]
 
-    # print( "topic" , topic , len( topic_Ys[ topic ] ) )
+    # sys.stderr.write( "topic" , topic , len( topic_Ys[ topic ] ) )
 
     # knn.nearestNeighbors( topic_Xs[ topic ] )
 
@@ -70,7 +70,7 @@ def predict_user( posts , method ):
     elif method == "KNN":
         now = 0
         for post in all_posts:
-            # print( "now  %d" % now )
+            # sys.stderr.write( "now  %d" % now )
             now += 1
             votes = knn_predict_post( post )
             for i in range( tc.N_CLASS ):
@@ -82,10 +82,10 @@ if __name__ == '__main__':
     for path , subdirs , files in os.walk( './validation' ):
         for file in files:
             if file[ -5 : ] == ".json":
-                print( "now %s" % path+"::"+file )
+                sys.stderr.write( "now %s" % path+"::"+file )
                 posts = json.load( open( os.path.join( path , file ) , 'r' ) )
-                print( "predict" , path+"::"+file , predict_user( posts ) )
-        print( path , subdirs , files )
+                sys.stderr.write( "predict" , path+"::"+file , predict_user( posts ) )
+        sys.stderr.write( path + subdirs + files + '\n' )
 
 
 
