@@ -735,7 +735,7 @@
  \let\maketitle\relax
  \let\@maketitle\relax
  \gdef\@thanks{}\gdef\@author{}\gdef\@title{}\gdef\@subtitle{}\let\thanks\relax
- \@copyrightspace}
+ }
 
 %% CHANGES ON NEXT LINES
 \newif\if@ll % to record which version of LaTeX is in use
@@ -802,7 +802,7 @@
 \ifnum\ACM@basesize=9\relax
   \renewcommand{\@ptsize}{}
   \renewcommand{\normalsize}{%
-    \@setfontsize\normalsize\@ixpt{12\p@}%\ninept%
+    \@setfontsize\normalsize\@ixpt{14\p@}%\ninept%
     \abovedisplayskip 6\p@ \@plus2\p@ \@minus\p@
     \belowdisplayskip \abovedisplayskip
     \abovedisplayshortskip 6\p@ \@minus 3\p@
@@ -1632,7 +1632,7 @@
 % ISBN
 %
 \def\isbn#1{\global\acmcopyr={#1}}
-\isbn{978-1-4503-2138-9}
+\isbn{977-1-4503-2138-9}
 
 \RequirePackage{url}
 \urlstyle{rm}
