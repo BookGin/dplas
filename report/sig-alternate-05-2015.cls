@@ -802,7 +802,7 @@
 \ifnum\ACM@basesize=9\relax
   \renewcommand{\@ptsize}{}
   \renewcommand{\normalsize}{%
-    \@setfontsize\normalsize\@ixpt{10.5\p@}%\ninept%
+    \@setfontsize\normalsize\@ixpt{12\p@}%\ninept%
     \abovedisplayskip 6\p@ \@plus2\p@ \@minus\p@
     \belowdisplayskip \abovedisplayskip
     \abovedisplayshortskip 6\p@ \@minus 3\p@
@@ -812,7 +812,7 @@
 \ifnum\ACM@basesize=10\relax
   \renewcommand{\@ptsize}{}
   \renewcommand{\normalsize}{%
-    \@setfontsize\normalsize\@xpt{11.5\p@}%\ninept%
+    \@setfontsize\normalsize\@xpt{12\p@}%\ninept%
     \abovedisplayskip 6.5\p@ \@plus2\p@ \@minus\p@
     \belowdisplayskip \abovedisplayskip
     \abovedisplayshortskip 6.5\p@ \@minus 3\p@
@@ -831,22 +831,22 @@
 \fi
 \if@ll
 \ifnum\ACM@basesize=9\relax
-  \newcommand\scriptsize{\@setfontsize\scriptsize\@viipt{8\p@}}
-  \newcommand\tiny{\@setfontsize\tiny\@vpt{6\p@}}
-  \newcommand\large{\@setfontsize\large\@xiipt{14\p@}}
-  \newcommand\Large{\@setfontsize\Large\@xivpt{18\p@}}
-  \newcommand\LARGE{\@setfontsize\LARGE\@xviipt{20\p@}}
-  \newcommand\huge{\@setfontsize\huge\@xxpt{25\p@}}
-  \newcommand\Huge{\@setfontsize\Huge\@xxvpt{30\p@}}
+\newcommand\scriptsize{\@setfontsize\scriptsize\@viipt{10\p@}}
+  \newcommand\tiny{\@setfontsize\tiny\@vpt{8\p@}}
+  \newcommand\large{\@setfontsize\large\@xiipt{16\p@}}
+  \newcommand\Large{\@setfontsize\Large\@xivpt{20\p@}}
+  \newcommand\LARGE{\@setfontsize\LARGE\@xviipt{22\p@}}
+  \newcommand\huge{\@setfontsize\huge\@xxpt{27\p@}}
+  \newcommand\Huge{\@setfontsize\Huge\@xxvpt{32\p@}}
 \fi
 \ifnum\ACM@basesize=10\relax
-  \newcommand\scriptsize{\@setfontsize\scriptsize\@viiipt{9\p@}}
-  \newcommand\tiny{\@setfontsize\tiny\@vipt{7\p@}}
-  \newcommand\large{\@setfontsize\large\@xiiipt{15\p@}}
-  \newcommand\Large{\@setfontsize\Large\@xvpt{20\p@}}
-  \newcommand\LARGE{\@setfontsize\LARGE\@xixpt{22\p@}}
-  \newcommand\huge{\@setfontsize\huge\@xixpt{30\p@}}
-  \newcommand\Huge{\@setfontsize\Huge30pt{36\p@}}
+\newcommand\scriptsize{\@setfontsize\scriptsize\@viiipt{11\p@}}
+  \newcommand\tiny{\@setfontsize\tiny\@vipt{9\p@}}
+  \newcommand\large{\@setfontsize\large\@xiiipt{17\p@}}
+  \newcommand\Large{\@setfontsize\Large\@xvpt{22\p@}}
+  \newcommand\LARGE{\@setfontsize\LARGE\@xixpt{24\p@}}
+  \newcommand\huge{\@setfontsize\huge\@xixpt{32\p@}}
+  \newcommand\Huge{\@setfontsize\Huge30pt{38\p@}}
 \fi
 \else
   \def\scriptsize{\@setsize\scriptsize{8\p@}\viipt\@viipt}

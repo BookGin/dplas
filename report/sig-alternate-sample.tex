@@ -46,6 +46,58 @@
 % For tracking purposes - this is V2.0 - May 2012
 
 \documentclass{sig-alternate-05-2015}
+\setlength{\parindent}{2em} % indent size for chinese
+\usepackage{indentfirst} % 中文第一段縮排套件
+\usepackage[no-math]{fontspec}
+\usepackage[SlantFont]{xeCJK}
+
+\newcommand{\FontPath}{./font/}
+
+\XeTeXinputencoding "utf8"
+\XeTeXdefaultencoding "utf8"
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt
+
+\setmainfont[
+    Mapping = tex-text,
+    Path = \FontPath,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    BoldItalicFont = *-BoldItalic,
+    ItalicFont = *-Italic,
+]{NotoSerif}
+
+\setsansfont[
+    Mapping = tex-text,
+    Path = \FontPath,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    BoldItalicFont = *-BoldItalic,
+    ItalicFont = *-Italic,
+]{NotoSans}
+
+\setmonofont[
+    Scale = 0.96,
+    Path = \FontPath,
+    UprightFont = *,
+    BoldFont = *-Bold,
+    BoldItalicFont = *-BoldItalic,
+    ItalicFont = *-Italic,
+]{Inconsolata-LGC}
+
+\setCJKmainfont[
+    Mapping = tex-text,
+    Path = \FontPath,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+]{NotoSansCJKtc}
+
+\setCJKmonofont[
+    Mapping = tex-text,
+    Path = \FontPath,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+]{NotoSansCJKtc}
 
 
 \begin{document}
@@ -61,31 +113,29 @@
 
 
 % DOI
-\doi{10.475/123_4}
+%\doi{10.475/123_4}
 
 % ISBN
-\isbn{123-4567-24-567/08/06}
+%\isbn{123-4567-24-567/08/06}
 
 %Conference
-\conferenceinfo{PLDI '13}{June 16--19, 2013, Seattle, WA, USA}
+%\conferenceinfo{PLDI '13}{June 16--19, 2013, Seattle, WA, USA}
 
-\acmPrice{\$15.00}
+%\acmPrice{\$15.00}
 
 %
 % --- Author Metadata here ---
-\conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
+%\conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
 %\CopyrightYear{2007} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Deep Political Leaning Analysis System (DPLAS)\titlenote{(Produces the permission block, and
-copyright information). For use with
-SIG-ALTERNATE.CLS. Supported by ACM.}}
-\subtitle{[Extended Abstract]
-\titlenote{A full version of this paper is available as
-\textit{Author's Guide to Preparing ACM SIG Proceedings Using
-\LaTeX$2_\epsilon$\ and BibTeX} at
-\texttt{www.acm.org/eaddress.htm}}}
+\title{Deep Political Leaning Analysis System (DPLAS)}
+%\subtitle{[Extended Abstract]
+%\titlenote{A full version of this paper is available as
+%\textit{Author's Guide to Preparing ACM SIG Proceedings Using
+%\LaTeX$2_\epsilon$\ and BibTeX} at
+%\texttt{www.acm.org/eaddress.htm}}}
 %
 % You need the command \numberofauthors to handle the 'placement
 % and alignment' of the authors beneath the title.
@@ -128,38 +178,36 @@ SIG-ALTERNATE.CLS. Supported by ACM.}}
 %
 % 1st. author
 \alignauthor
-Amy Lin\titlenote{Dr.~Trovato insisted his name be first.}\\
-       \affaddr{B03902XXX}\\
+林祐萱\\
+\affaddr{B03902055}\\
        \affaddr{NTU CSIE}\\       
-       \email{trovato@cor}
+       \email{b03902055@ntu.edu.tw}
+% 4th. author
+\alignauthor 蔡尚佑\\
+\affaddr{B03902068}\\
+       \affaddr{NTU CSIE}\\       
+       \email{b03902068@ntu.edu.tw}
 % 2nd. author
 \alignauthor
-Gin\titlenote{The secretary disavows
-any knowledge of this author's actions.}\\
-       \affaddr{B03902XXX}\\
+林書瑾\\
+\affaddr{B03902078}\\
        \affaddr{NTU CSIE}\\       
-       \email{trovato@corpom}
+       \email{b03902078@ntu.edu.tw}
 % 3rd. author
-\alignauthor c2251393\titlenote{This author is the
-one who did all the really hard work.}\\
-       \affaddr{B03902XXX}\\
+\and
+\alignauthor 陳力\\
+\affaddr{B03902083}\\
        \affaddr{NTU CSIE}\\       
-       \email{trovato@cor}
-\and  % use '\and' if you need 'another row' of author names
-% 4th. author
-\alignauthor Pomelo\\
-       \affaddr{B03902XXX}\\
-       \affaddr{NTU CSIE}\\       
-       \email{trovato@cor}
+       \email{b03902083@ntu.edu.tw}
 }
 % There's nothing stopping you putting the seventh, eighth, etc.
 % author on the opening page (as the 'third row') but we ask,
 % for aesthetic reasons that you place these 'additional authors'
 % in the \additional authors block, viz.
-\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
-email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
-(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{30 July 1999}
+%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
+%email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
+%(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
+%\date{30 July 1999}
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
@@ -196,35 +244,35 @@ is available on the web page to help you with the
 % http://dl.acm.org/ccs.cfm
 % Please copy and paste the code instead of the example below. 
 %
-\begin{CCSXML}
-<ccs2012>
- <concept>
-  <concept_id>10010520.10010553.10010562</concept_id>
-  <concept_desc>Computer systems organization~Embedded systems</concept_desc>
-  <concept_significance>500</concept_significance>
- </concept>
- <concept>
-  <concept_id>10010520.10010575.10010755</concept_id>
-  <concept_desc>Computer systems organization~Redundancy</concept_desc>
-  <concept_significance>300</concept_significance>
- </concept>
- <concept>
-  <concept_id>10010520.10010553.10010554</concept_id>
-  <concept_desc>Computer systems organization~Robotics</concept_desc>
-  <concept_significance>100</concept_significance>
- </concept>
- <concept>
-  <concept_id>10003033.10003083.10003095</concept_id>
-  <concept_desc>Networks~Network reliability</concept_desc>
-  <concept_significance>100</concept_significance>
- </concept>
-</ccs2012>  
-\end{CCSXML}
+%\begin{CCSXML}
+%<ccs2012>
+ %<concept>
+  %<concept_id>10010520.10010553.10010562</concept_id>
+  %<concept_desc>Computer systems organization~Embedded systems</concept_desc>
+  %<concept_significance>500</concept_significance>
+ %</concept>
+ %<concept>
+  %<concept_id>10010520.10010575.10010755</concept_id>
+  %<concept_desc>Computer systems organization~Redundancy</concept_desc>
+  %<concept_significance>300</concept_significance>
+ %</concept>
+ %<concept>
+  %<concept_id>10010520.10010553.10010554</concept_id>
+  %<concept_desc>Computer systems organization~Robotics</concept_desc>
+  %<concept_significance>100</concept_significance>
+ %</concept>
+ %<concept>
+  %<concept_id>10003033.10003083.10003095</concept_id>
+  %<concept_desc>Networks~Network reliability</concept_desc>
+  %<concept_significance>100</concept_significance>
+ %</concept>
+%</ccs2012>  
+%\end{CCSXML}
 
-\ccsdesc[500]{Computer systems organization~Embedded systems}
-\ccsdesc[300]{Computer systems organization~Redundancy}
-\ccsdesc{Computer systems organization~Robotics}
-\ccsdesc[100]{Networks~Network reliability}
+%\ccsdesc[500]{Computer systems organization~Embedded systems}
+%\ccsdesc[300]{Computer systems organization~Redundancy}
+%\ccsdesc{Computer systems organization~Robotics}
+%\ccsdesc[100]{Networks~Network reliability}
 
 
 %
