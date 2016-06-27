@@ -28,8 +28,9 @@ for i in range( tc.N_CLUS ):
         topic_Xs[ i ].append( cur_Xs[ j ] )
         topic_Ys[ i ].append( cur_Ys[ j ] )
 
-    KNN[ i ] = NearestNeighbors( n_neighbors=min( K , len( cur_Ys ) ) , metric='cosine' , algorithm='brute' , n_jobs=1 )
-    KNN[ i ].fit( cur_Xs )
+    if len( cur_Ys ) > 0:
+        KNN[ i ] = NearestNeighbors( n_neighbors=min( K , len( cur_Ys ) ) , metric='cosine' , algorithm='brute' , n_jobs=1 )
+        KNN[ i ].fit( cur_Xs )
 
 def knn_predict_post( post ):
     d = tc.vec.transform( [ bigram.get_words( post ) ] )
@@ -40,8 +41,10 @@ def knn_predict_post( post ):
     # knn.nearestNeighbors( topic_Xs[ topic ] )
 
     # knns = knn.kneighbors( d , K )
-
-    knns = KNN[ topic ].kneighbors( d , return_distance=False )[ 0 ]
+    
+    knns = []
+    if KNN[ topic ]:
+        knns = KNN[ topic ].kneighbors( d , return_distance=False )[ 0 ]
 
     votes = [ 0.0 for i in range( tc.N_CLASS )  ]
     for id in knns:

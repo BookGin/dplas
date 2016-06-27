@@ -56,10 +56,10 @@ else:
     print( "build important label doc" )
     for i in range( N_CLASS ):
         print( "doing %d" % i )
-        # xs = [ ( D[ j ].min() , j ) for j in range( len( each_label[ i ] ) ) ]
-        # print( "xs done" )
-        # xs.sort()
-        # each_label[ i ] = list( map( lambda p:p[ 1 ] , xs[ :3000 ] ) )
+        xs = [ ( D[ j ].min() , j ) for j in range( len( each_label[ i ] ) ) ]
+        print( "xs done" )
+        xs.sort()
+        each_label[ i ] = list( map( lambda p:p[ 1 ] , xs[ :min( len( xs ) , 6000 ) ] ) )
         print( "len %d" % len( each_label[ i ] ) )
         for id in each_label[ i ]:
             x = X[ id ]
