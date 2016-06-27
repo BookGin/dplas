@@ -31,14 +31,14 @@ def gen():
 # @return: string, text of this random doc
 def genRandomDocInTopic(topic_index):
     #TODO
-    return model . genRandomDocInTopic(topic_index)
+    return src.test.genRandomDocInTopic(topic_index)
 
 def evaluate( data ):
     # data = {index: 1, input: ["我喜歡","jhk",...]}
     # this program should store which index store what docs
     # by the index and the choice seq 010101001
     # this function returns the result: [0.5, 0.0, 0.12, 0.3, 0.04, 0.04]
-    return src.user.predict_user(data["input"], method = "KNN")
+    return src.test.predict_user( data["input"] , method = "KNN" )
 
 def main():
 	global count
@@ -50,16 +50,20 @@ def main():
 
 	# get our data as an array from read_in()
 	for line in sys.stdin:
+		key = line.split()[0]
 
-		if line.split()[0] == 'Load': # 0
+		if key == 'Load': # 0
 
 			sys.stderr.write( 'Loading data #' + str(count) + '\n' )	
 			print( '0 ' + json.dumps( gen() ) )
+
+		elif key == 'Eva': # 1
 
 			line = line.replace( 'Eva ', '', 1 )[:-1]
 			obj = json.loads( line )
 			sys.stderr.write( 'Evaluate data #' + str(obj[ 'index' ]) + ': input length ' + str(len(obj[ 'input' ])) + '\n' )
 			print( '1 ' + json.dumps( evaluate( obj ) ) )
+
 		else:
 			sys.stderr.write( 'Got invalid: ' + line )
 
