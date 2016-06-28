@@ -10,8 +10,10 @@ punct = set(u'''¢、。〉》」』】〕】〞︰︱︳﹐､﹒
             ﹊﹍﹎﹋﹌﹏︴﹨∕╲╱＼／↑↓←→↖↗↙↘
             ︽︿﹁﹃﹙﹛﹝（｛「『-—_!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~…''')
 
-punct.union( string.punctuation )
-punct.union( string.whitespace )
+punct = punct.union( string.punctuation )
+punct = punct.union( string.whitespace )
+punct = punct.union( string.ascii_letters )
+punct = punct.union( string.digits )
 
 def get_words( text ):
     pure_text = '^'+''.join( w if w not in punct else ' ' for w in text )+'$'
