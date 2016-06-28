@@ -131,7 +131,7 @@
 % --- End of Author Metadata ---
 
 \title{Deep Political Leaning Analysis System (DPLAS)}
-\subtitle{2016 Spring - Web Retrivel and Mining - Final Project}
+\subtitle{2016 Spring - Web Retrieval and Mining - Final Project}
 %\titlenote{A full version of this paper is available as
 %\textit{Author's Guide to Preparing ACM SIG Proceedings Using
 %\LaTeX$2_\epsilon$\ and BibTeX} at
@@ -269,6 +269,7 @@ The main objective is to analyze a user’s political leaning based on his posts
 Another important assumption is that posts about different topic may come from different language model. If we treat them as a large vector, it’s unreasonable that a post can contain various topics. As a result, we will classify documents and user’s query into different topics, creating a vector space model in each topic.
 
 \section{Implementation}
+
 The whole algorithm is basically a multi-class classification algorithm, with the political parties as classes. Most of time, text classification problem is simply applied with some linear classification techniques e.g. linear SVM. But here we think that since each document has its own topic like talking about gay-marriage.
 
 The assumption we make here is that documents about different topic may come from different language model. So what we do first is to partition our documents into different topics by clustering algorithm. Then we train classifiers for each different topic base on the documents of the topic.
@@ -277,7 +278,7 @@ For a query (a user) , we treat it as a set of documents. Then we classify each 
 
 \subsection{Cluster Data Into Different Topics}
 
-The first job we have to do is to cluster data into different topics. We use K-Means Clustering to separate them into 12 different topics. The motivation of clustering data is: for documents with various topics, we assume they are generated from different language models.
+The first job we have to do is to cluster data into different topics. We use \textit{K-Means Clustering} to separate them into 12 different topics. The motivation of clustering data is: for documents with various topics, we assume they are generated from different language models.
 
 For instance, a document about homosexuality is irrelative to capital punishment, and we’ll assume it is generated from homosexuality model.
 
@@ -334,18 +335,25 @@ Then we use our algorithm above to estimate the probability $Pr( x \text{ is sim
 
 Here we just average all political bias of its posts and treat it as the political leaning of that user. Next, we apply \textit{K-Nearest Neighbors} algorithm to find k-nearest vectors (\textit{logistic regression} is also used) with \textit{cosine similarity}. Finally, we make k-nearest vectors to "vote" political leanings of user's posts.
 
-But one more issue remains : what if that user don't post a lot?
+\subsection{Active Learning}
+
+One more issue remains : what if that user don't post a lot?
 
 Here we use an active-learning-flavored idea : provide several posts from out data set and make the user to choose which it identify with. The post the user choose can be seen as the post it wrote. And the extended user posts set is then applied with our algorithm to figure out the political leaning.
 
 \section{Result}
 
-The ground truth of a person's political leanings is hard to define. Hence, we estimate legislators' political leanings of different known parties. The results shown in \textit{table 1} are estimated probability of having political leaning similar to some party. The order is 國民黨, 民進黨, 時代力量, 親民黨, 綠黨, 社會民主黨 respectively.
+The ground truth of a person's political leanings is hard to define. Hence, we estimate legislators' political leanings of different known parties. The results shown in \textit{table 1} are estimated probability of having political leaning similar to some party. The parties used to build model are 國民黨, 民進黨, 時代力量, 親民黨, 綠黨, 社會民主黨.
 
-We found in most case, if the user input is sufficient and highly related to politics, the political leanings we predict is very precise. However, if user tends to post neutral and ambiguous remarks, the precision will be limited. When user's posts are unbiased, there are too many similar documents.
+For active learning, users have to make choice of their preferred document. This is usually determinative bacause the document has already been labeled to a political party. As a result, when the input data is insufficient, this active-learning-flavored model works well.
+
+\section{Conclusion}
+
+In most case, if the user input is sufficient and highly related to politics, the political leanings we predict is very precise. However, if user tends to post neutral and ambiguous remarks, or the input is insufficient, the precision will be limited. That is, the result is highly sensitive to user's input data. When user's posts are unbiased, there are too many documents considered similar.
+
+Users' choice of documents is determinative when input data is not enough. Nevertheless, users' preferred documents may be not representative of his opinion. To summarize, the quantity of the user's posts are more important than his choice, which reveals his "true opinion" to some degree.
 
 \section{Work Distribution}
-
 \begin{itemize}
   \item 陳力  : model design , data clustering , website data crawling
   \item 林祐萱: demo website , FB posts data crawling , inverted file , model design 
@@ -355,14 +363,7 @@ We found in most case, if the user input is sufficient and highly related to pol
 
 \section{Document Set}
 
-We crawl data from:
-
-\begin{itemize}
- \item  Liberty Times News, UDN news 
- \item  Facebook Pages
- \item  PTT Gossiping
- \item  Political Parties and NGOs
-\end{itemize}
+We crawl data from Liberty Times news(自由時報), UDN news(聯合報), Facebook Pages, PTT Gossiping, political parties and NGOs
 
 Download Link:
 
