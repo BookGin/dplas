@@ -26,7 +26,7 @@ var loadtest = function() {
 			for( var p in data.docs[i] )
 				$('#select-' + i).append( '<tr id="select-' + i + '-' + p + '"><td>' + data.docs[i][p] + '</td></tr>' )
 		}
-		
+
 		loadout();
 
 		$( '#two' ).show();
@@ -44,7 +44,7 @@ var loadtest = function() {
 };
 
 var eva = function() {
-
+	$('#runring').show();
 	var inputs = new Array();
 
 	$('.dsel').each( function() {
@@ -94,6 +94,7 @@ var eva = function() {
 				"社民黨"
 			]
 		};
+		$('#runring').hide();
 		$('#four').show();
 		var chart = new Chart(
 			$('#chart-box'),{
@@ -119,6 +120,5 @@ var loadin = function() {
 
 var loadout = function() {
 	$('#loadtest').attr('disabled', false);
-	$('#loadring').hide();	
+	$('#loadring').hide();
 };
-
