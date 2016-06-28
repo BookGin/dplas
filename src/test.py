@@ -58,14 +58,14 @@ def genRandomDocInTopic( topic ):
     K = 20
     maxlen = -10.0
     id = -1
-    tc.vec.set_param( norm=None )
+    tc.vec.set_params( norm=None )
     for i in range( K ):
         tid = random.choice( tc.inv_topic[ topic ] )
         d = tc.vec.transform( [ tc.corpus[ tid ] ] )
         len = norm( d )
         if len > maxlen:
             maxlen , id = len , tid
-    tc.vec.set_param( norm='l2' )
+    tc.vec.set_params( norm='l2' )
     return tc.datas[ id ][ 'body' ]
 
 def predict_user( posts , method ):
