@@ -18,6 +18,7 @@ app.set('view engine', 'ejs');
 
 app.set('port', port);
 app.use(express.static(path.join(__dirname, 'public')));
+  app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(cookieParser());
 app.use(logger('dev'));
 app.use(bodyParser.json());
