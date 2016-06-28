@@ -12,6 +12,7 @@ import numpy as np
 import scipy as sp
 import jieba
 import string
+import sys
 
 import os
 
@@ -32,7 +33,7 @@ else:
         for file in files:
             if file[ -5 : ] == ".json":
                 datas += json.load( open( os.path.join( path , file ) , 'r' ) )
-        sys.stderr.write( path + subdirs + files + '\n' )
+        sys.stderr.write( str(path) + str(subdirs) + str(files) + '\n' )
     joblib.dump( datas , "./pkls/all_data.pkl" )
 
 sys.stderr.write( "all data done\n" )
