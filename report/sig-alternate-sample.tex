@@ -270,7 +270,7 @@ Another important assumption is that posts about different topic may come from d
 
 \section{Implementation}
 
-The whole algorithm is basically a multi-class classification algorithm, with the political parties as classes. Most of time, text classification problem is simply applied with some linear classification techniques e.g. linear SVM. But here we think that since each document has its own topic like talking about gay-marriage.
+The whole algorithm is basically a multi-class classification algorithm, with the political parties as classes. In most of time, text classification problem is simply applied with some linear classification techniques e.g. linear SVM. But here we think that since each document has its own topic like talking about gay-marriage.
 
 The assumption we make here is that documents about different topic may come from different language model. So what we do first is to partition our documents into different topics by clustering algorithm. Then we train classifiers for each different topic base on the documents of the topic.
 
@@ -333,7 +333,11 @@ To analyze a user's political leaning, we first have to extract the user's infor
 
 Then we use our algorithm above to estimate the probability $Pr( x \text{ is similar to posts of political party } y \| x , \theta )$ of each post it wrote. But it remains an issue \: what is the political leaning of that user given his post's political bias ?
 
-Here we just average all political bias of its posts and treat it as the political leaning of that user. Next, we apply \textit{K-Nearest Neighbors} algorithm to find k-nearest vectors (\textit{logistic regression} is also used) with \textit{cosine similarity}. Finally, we make k-nearest vectors to "vote" political leanings of user's posts.
+Here we just average all political bias of its posts and treat it as the political leaning of that user. Next, we apply \textit{K-Nearest Neighbors} algorithm to find k-nearest vectors (\textit{logistic regression*} is also used) with \textit{cosine similarity}. Finally, we make k-nearest vectors to "vote" political leanings of user's posts.
+
+*logistic regression: L2-regularized logistic regression,
+Fan,  Rong-En,  et al. "LIBLINEAR: A library for large linear classification." Journal of machine learning research 9.Aug (2008): 1871-1874. Appendix A.2
+
 
 \subsection{Active Learning}
 
@@ -345,11 +349,11 @@ Here we use an active-learning-flavored idea : provide several posts from out da
 
 The ground truth of a person's political leanings is hard to define. Hence, we estimate legislators' political leanings of different known parties. The results shown in \textit{table 1} are estimated probability of having political leaning similar to some party. The parties used to build model are 國民黨, 民進黨, 時代力量, 親民黨, 綠黨, 社會民主黨.
 
-For active learning, users have to make choice of their preferred document. This is usually determinative bacause the document has already been labeled to a political party. As a result, when the input data is insufficient, this active-learning-flavored model works well.
+For active learning, user's choice is usually determinative bacause the document is labeled to a political party already. As a result, when the input data is insufficient, this active-learning-flavored model works well.
 
 \section{Conclusion}
 
-In most case, if the user input is sufficient and highly related to politics, the political leanings we predict is very precise. However, if user tends to post neutral and ambiguous remarks, or the input is insufficient, the precision will be limited. That is, the result is highly sensitive to user's input data. When user's posts are unbiased, there are too many documents considered similar.
+In most cases, if the user input is sufficient and highly related to politics, the result is very precise. However, if user tends to post neutral and ambiguous remarks, or the input is insufficient, the precision will be limited. That is, the result is highly sensitive to user's input data. When user's posts are unbiased, there are too many documents considered similar.
 
 Users' choice of documents is determinative when input data is not enough. Nevertheless, users' preferred documents may be not representative of his opinion. To summarize, the quantity of the user's posts are more important than his choice, which reveals his "true opinion" to some degree.
 
@@ -363,10 +367,6 @@ Users' choice of documents is determinative when input data is not enough. Never
 
 \section{Document Set}
 
-We crawl data from Liberty Times news(自由時報), UDN news(聯合報), Facebook Pages, PTT Gossiping, political parties and NGOs
-
-Download Link:
-
-https://goo.gl/69bUCH
+We crawl data from Liberty Times news(自由時報), UDN news(聯合報), Facebook Pages, PTT Gossiping, political parties and NGOs. They can be downloaded from https://goo.gl/69bUCH
 
 \end{document}
